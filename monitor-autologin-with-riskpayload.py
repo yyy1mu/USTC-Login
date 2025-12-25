@@ -36,6 +36,10 @@ def load_or_generate_device():
             return json.load(f)
     print("[!] 正在初始化新设备指纹...")
     ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    # 默认UA是windows系统，风险引擎对于UA的校验比较严格
+    # todo : TOTP加入受信任的设备
+    # 修改头之后需要您删除本地的 device_info.json 文件以重新生成指纹
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     config = {
         "device": sha256_hex(str(int(time.time() * 1000))),
         "deviceID": sha256_hex(f"{ua}|MacIntel|zh-CN|8-core"),
